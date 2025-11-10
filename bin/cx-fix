@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+die() {
+  echo "[cx-fix] $1" >&2
+  exit 1
+}
+
+command -v codex >/dev/null 2>&1 || die "codex CLI is required."
+cmd="pytest"
+if (( $# > 0 )); then
+  cmd="$*"
+fi
+log_file=$(mktemp)
+trap 'rm -f "$log_file"' EXIT
+
+echo "[cx-fix] Running tests: $cmd"
+if bash -lc "$cmd" >"$log_file" 2>&1; then
+  echo "[cx-fix] Tests passed successfully."
+  exit 0
+fi
+
+log_contents=$(cat "$log_file")
+
+codex --profile dev <<PROMPT
+You attempted to run the following test command and it failed:
+$cmd
+
+Here is the full test log:
+$log_contents
+
+Act as a debugging partner. Explain the likely root causes, propose specific code changes (with file and approximate location references when possible), and suggest additional tests that would prevent regressions.
+PROMPT

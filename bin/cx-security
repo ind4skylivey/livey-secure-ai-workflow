@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+die() {
+  echo "[cx-security] $1" >&2
+  exit 1
+}
+
+command -v find >/dev/null 2>&1 || die "find command not available."
+command -v tar >/dev/null 2>&1 || die "tar is required."
+command -v base64 >/dev/null 2>&1 || die "base64 is required."
+command -v codex >/dev/null 2>&1 || die "codex CLI is required."
+
+max_files=200
+target_dir=${1:-.}
+
+if [[ ! -d $target_dir ]]; then
+  die "Target directory '$target_dir' does not exist."
+fi
+
+extensions=(-name '*.php' -o -name '*.js' -o -name '*.ts' -o -name '*.py')
+
+files=()
+while IFS= read -r -d '' file; do
+  files+=("$file")
+  if (( ${#files[@]} >= max_files )); then
+    break
+  fi
+done < <(find "$target_dir" -type f '(' "${extensions[@]}" ')' -print0 | LC_ALL=C sort -z)
+
+if (( ${#files[@]} == 0 )); then
+  echo "[cx-security] No matching source files found."
+  exit 0
+fi
+
+archive=$(mktemp)
+trap 'rm -f "$archive"' EXIT
+
+printf '%s\0' "${files[@]}" | tar --null -czf "$archive" --files-from -
+
+if encoded=$(base64 -w0 "$archive" 2>/dev/null); then
+  :
+else
+  encoded=$(base64 "$archive" | tr -d '\n')
+fi
+
+file_count=${#files[@]}
+codex --profile analyze <<PROMPT
+You are a security engineer with a red-team mindset. You received a base64-encoded tar.gz archive that contains $file_count source files (limited to $max_files) from the directory '$target_dir'.
+
+Archive (base64 tar.gz):
+$encoded
+
+Conceptually inspect the archive contents and:
+- Identify likely security issues (SQL injection, XSS, CSRF, auth, file handling, command injection, insecure deserialization, etc.).
+- For each issue, explain the risk, point to the file and approximate location, and propose concrete remediations suitable for the language and stack.
+PROMPT

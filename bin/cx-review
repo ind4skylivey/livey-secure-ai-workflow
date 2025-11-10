@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<USAGE
+Usage: cx-review [working]
+  working   Review unstaged working tree changes instead of staged changes.
+USAGE
+}
+
+die() {
+  echo "[cx-review] $1" >&2
+  exit 1
+}
+
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+command -v git >/dev/null 2>&1 || die "git is required."
+command -v codex >/dev/null 2>&1 || die "codex CLI is required."
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "Run inside a git repository."
+
+diff_target="staged"
+diff_command=(git diff --cached)
+
+if [[ ${1:-} == "working" ]]; then
+  diff_target="working tree"
+  diff_command=(git diff)
+fi
+
+diff_output="$("${diff_command[@]}")"
+
+if [[ -z ${diff_output// } ]]; then
+  echo "[cx-review] No ${diff_target} changes to review."
+  exit 0
+fi
+
+codex --profile analyze <<CODEND
+You are a senior engineer and security-conscious reviewer.
+Review the following git diff and provide:
+1. A short high-level summary.
+2. A bullet list of concrete issues with file and line references when possible.
+3. A bullet list of suggested improvements.
+
+Diff to review:
+$diff_output
+CODEND
