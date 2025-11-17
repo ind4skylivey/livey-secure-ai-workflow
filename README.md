@@ -1,17 +1,31 @@
 # livey-codex-toolkit
-
-<pre align="center">
-<img width="1024" height="1024" alt="56335" src="https://github.com/user-attachments/assets/ada40492-65b9-47ed-bfe9-28979b160ca6" />
-
-<div align="center">
-  <img src="https://img.shields.io/badge/status-active-50fa7b?style=for-the-badge&labelColor=1e1e2e" alt="Status badge">
-  <img src="https://img.shields.io/badge/cli-codex-8be9fd?style=for-the-badge&labelColor=1e1e2e" alt="Codex badge">
-  <img src="https://img.shields.io/badge/UAEP-v1.0-ff79c6?style=for-the-badge&labelColor=1e1e2e" alt="UAEP badge">
-  <img src="https://img.shields.io/badge/platform-linux%20only-fc618d?style=for-the-badge&labelColor=1e1e2e" alt="Linux badge">
-</div>
-
 <p align="center">
-  <sub>Repository: <a href="https://github.com/ind4skylivey/livey-codex-toolkit">github.com/ind4skylivey/livey-codex-toolkit</a></sub>
+  <img width="1024" height="1024" alt="56335" src="https://github.com/user-attachments/assets/287507a2-5e38-44e4-9c35-d0c643923e87" />
+
+  <!-- Status & Version -->
+  <img src="https://img.shields.io/badge/status-LIVE-43d675?style=for-the-badge&labelColor=282a36&logo=statuspage&logoColor=white" alt="status"/>
+  <img src="https://img.shields.io/badge/UAEP%20protocol-v1.0-ff79c6?style=for-the-badge&labelColor=282a36&logo=octopusdeploy&logoColor=white" alt="uaep"/>
+  <img src="https://img.shields.io/badge/AI%20powered-all%20LLMs-6366f1?style=for-the-badge&logo=openai&logoColor=white" alt="ai-universal"/>
+  <img src="https://img.shields.io/badge/models-GPT%20%7C%20Claude%20%7C%20Ollama-bd93f9?style=for-the-badge&logo=huggingface&logoColor=white" alt="models"/>
+  <!-- Core Tech -->
+  <img src="https://img.shields.io/badge/bash-5.0+-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="bash"/>
+  <img src="https://img.shields.io/badge/platform-Linux-fc618d?style=for-the-badge&labelColor=282a36&logo=linux&logoColor=white" alt="platform"/>
+  
+  <!-- License & Activity -->
+  <img src="https://img.shields.io/badge/license-MIT-8BE9FD?style=for-the-badge&labelColor=282a36&logo=open-source-initiative&logoColor=white" alt="mit"/>
+  <img src="https://img.shields.io/github/last-commit/ind4skylivey/livey-codex-toolkit?style=for-the-badge&logo=git&logoColor=white&label=Last%20commit" alt="last-commit"/>
+</p>
+
+<!-- Segunda fila: Features & Community -->
+<p align="center">
+  <img src="https://img.shields.io/badge/local%20AI-supported-50fa7b?style=for-the-badge&logo=pytorch&logoColor=black" alt="local-ai"/>
+  <img src="https://img.shields.io/badge/terminal-first-bd93f9?style=for-the-badge&logo=gnome-terminal&logoColor=white" alt="terminal"/>
+  <img src="https://img.shields.io/badge/automation-enabled-f1fa8c?style=for-the-badge&logo=git-extensions&logoColor=black" alt="automation"/>
+  <img src="https://img.shields.io/badge/PRs-welcome-ff79c6?style=for-the-badge&logo=github" alt="prs-welcome"/>
+  <img src="https://img.shields.io/github/stars/ind4skylivey/livey-codex-toolkit?style=for-the-badge&logo=github&color=f1fa8c" alt="stars"/>
+</p>
+<p align="center">
+  <b>CLI-first toolkit for terminal power users, with UAEP protocol, GitHub + AI integration and pro-grade code automation.</b>
 </p>
 
 > ⚡️ **Livey Codex Toolkit**: CLI helpers + Codex templates + UAEP protocol for terminal-first developers who automate git/GitHub over SSH and expect structured AI feedback on tap.
