@@ -1,15 +1,7 @@
 # livey-codex-toolkit
 
 <pre align="center">
- _      _ _           _   __   __
-| |    (_) |         | |  \ \ / /
-| |     _| |__   ___ | |_  \ V / 
-| |    | | '_ \ / _ \| __|  > <  
-| |____| | |_) | (_) | |_  / . \ 
-|______|_|_.__/ \___/ \__|/_/ \_\
-
-        LiveY · CodeX-Toolkit · v1.1
-</pre>
+<img width="1024" height="1024" alt="56335" src="https://github.com/user-attachments/assets/ada40492-65b9-47ed-bfe9-28979b160ca6" />
 
 <div align="center">
   <img src="https://img.shields.io/badge/status-active-50fa7b?style=for-the-badge&labelColor=1e1e2e" alt="Status badge">
