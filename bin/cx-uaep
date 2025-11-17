@@ -1,0 +1,183 @@
+#!/usr/bin/env bash
+# livey-codex-toolkit: cx-uaep
+# Description: Load Universal Agent Execution Protocol into Codex session
+# Dependencies: codex, bash
+# Usage: cx-uaep [production|staging] [--mode MODE] [--profile PROFILE]
+
+set -euo pipefail
+
+readonly SCRIPT_NAME="$(basename "$0")"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+readonly UAEP_DIR="$SCRIPT_DIR/codex/prompts/uaep"
+readonly PROFILES_DIR="$SCRIPT_DIR/codex/prompts"
+
+readonly CODEX_BIN="${CODEX_BIN:-codex}"
+
+die() {
+    echo "$SCRIPT_NAME: $*" >&2
+    exit 1
+}
+
+require_command() {
+    command -v "$1" >/dev/null 2>&1 || die "Required command not found: $1"
+}
+
+show_help() {
+    cat <<'EOF'
+cx-uaep - Universal Agent Execution Protocol Loader
+
+USAGE:
+    cx-uaep [MODE] [OPTIONS]
+
+MODES:
+    production    Strict quality, optimized, final code (default)
+    staging       Experimental, iterative, prototypes allowed
+
+OPTIONS:
+    --mode MODE         Enable special mode(s): ai_local_support, 
+                        security_analysis, performance_max
+                        (comma-separated for multiple)
+    
+    --profile PROFILE   Load additional profile: laravel, security, rust, etc.
+    
+    --help, -h          Show this help message
+
+EXAMPLES:
+    # Load production mode
+    cx-uaep production
+    
+    # Load staging mode for prototyping
+    cx-uaep staging
+    
+    # Production with security analysis
+    cx-uaep production --mode security_analysis
+    
+    # Staging with custom profile
+    cx-uaep staging --profile laravel
+    
+    # Multiple special modes
+    cx-uaep production --mode security_analysis,performance_max
+
+SPECIAL MODES:
+    ai_local_support    Prefer local AI models (Ollama, llama.cpp)
+    security_analysis   Deep security scrutiny and threat modeling
+    performance_max     Optimization focus with benchmarks
+
+INTEGRATION:
+    After loading UAEP, use other cx-* commands:
+    
+    cx-uaep production && cx-review
+    cx-uaep staging && cx-commit
+    cx-uaep production --mode security_analysis && cx-security
+
+MORE INFO:
+    Read: codex/prompts/uaep/uaep_readme.md
+    Docs: https://github.com/ind4skylivey/livey-codex-toolkit
+EOF
+}
+
+build_protocol_prompt() {
+    local execution_mode="$1"
+    local special_modes="$2"
+    local profile="$3"
+    
+    local prompt_file
+    prompt_file="$(mktemp)"
+    
+    # Load base protocol
+    cat "$UAEP_DIR/loader.md" >> "$prompt_file"
+    
+    # Replace placeholders
+    sed -i "s/{MODE_WILL_BE_SET_BY_CX_UAEP}/$execution_mode/g" "$prompt_file"
+    sed -i "s/{SPECIAL_MODES_WILL_BE_SET}/$special_modes/g" "$prompt_file"
+    
+    # Add mode-specific rules
+    case "$execution_mode" in
+        production)
+            echo -e "\n---\n" >> "$prompt_file"
+            cat "$UAEP_DIR/uaep_production.md" >> "$prompt_file"
+            ;;
+        staging)
+            echo -e "\n---\n" >> "$prompt_file"
+            cat "$UAEP_DIR/uaep_staging.md" >> "$prompt_file"
+            ;;
+    esac
+    
+    # Add core protocol
+    echo -e "\n---\n" >> "$prompt_file"
+    cat "$UAEP_DIR/uaep_core.md" >> "$prompt_file"
+    
+    # Load custom profile if specified
+    if [[ -n "$profile" ]]; then
+        local profile_file="$PROFILES_DIR/agent.$profile.md"
+        if [[ -f "$profile_file" ]]; then
+            echo -e "\n---\n" >> "$prompt_file"
+            cat "$profile_file" >> "$prompt_file"
+        else
+            die "Profile not found: $profile (expected: $profile_file)"
+        fi
+    fi
+    
+    echo "$prompt_file"
+}
+
+main() {
+    require_command "$CODEX_BIN"
+    
+    local execution_mode="production"
+    local special_modes="none"
+    local profile=""
+    
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            production|staging)
+                execution_mode="$1"
+                shift
+                ;;
+            --mode)
+                special_modes="$2"
+                shift 2
+                ;;
+            --profile)
+                profile="$2"
+                shift 2
+                ;;
+            --help|-h)
+                show_help
+                exit 0
+                ;;
+            *)
+                die "Unknown argument: $1 (use --help for usage)"
+                ;;
+        esac
+    done
+    
+    # Verify UAEP files exist
+    [[ -d "$UAEP_DIR" ]] || die "UAEP directory not found: $UAEP_DIR"
+    [[ -f "$UAEP_DIR/loader.md" ]] || die "UAEP loader not found"
+    
+    # Build protocol prompt
+    local protocol_file
+    protocol_file="$(build_protocol_prompt "$execution_mode" "$special_modes" "$profile")"
+    
+    # Display info
+    echo "┌─────────────────────────────────────────┐"
+    echo "│  UAEP Protocol Loader                  │"
+    echo "├─────────────────────────────────────────┤"
+    echo "│  Mode:    $execution_mode"
+    echo "│  Special: $special_modes"
+    [[ -n "$profile" ]] && echo "│  Profile: $profile"
+    echo "└─────────────────────────────────────────┘"
+    echo
+    echo "Loading protocol into Codex session..."
+    echo
+    
+    # Start Codex with protocol loaded
+    $CODEX_BIN --load "$protocol_file"
+    
+    # Cleanup
+    rm -f "$protocol_file"
+}
+
+main "$@"
