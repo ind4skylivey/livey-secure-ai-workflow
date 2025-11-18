@@ -128,7 +128,7 @@ This makes the toolkit **portable, engine-independent, and future-proof**.
 
 Load with UAEP:
 
-```bash
+
 cx-uaep production --profile claude
 cx-uaep production --profile qwen
 cx-uaep staging    --profile local
@@ -159,25 +159,24 @@ codex --profile droid cx-review
 
 ---
 
-# 🟣 **3) BADGES 
+# 🟣 Some Available CLI
 
-### Claude  
-https://img.shields.io/badge/Claude-Ready-9775fa?style=for-the-badge&logo=anthropic&logoColor=white
+![Claude](https://img.shields.io/badge/Claude-Ready-9775fa?style=for-the-badge&logo=anthropic&logoColor=white)
 
-### Ollama  
-https://img.shields.io/badge/Ollama-Local_LLM-7aa2f7?style=for-the-badge&logo=ollama&logoColor=white
+![Ollama](https://img.shields.io/badge/Ollama-Local_LLM-7aa2f7?style=for-the-badge&logo=ollama&logoColor=white)
 
-### Droid CLI  
-https://img.shields.io/badge/Droid_CLI-Engine-ff79c6?style=for-the-badge&logo=android&logoColor=white
+![Droid CLI](https://img.shields.io/badge/Droid_CLI-Engine-ff79c6?style=for-the-badge&logo=android&logoColor=white)
+
 
 ---
 
-# 🟣 **4) VISUAL DIAGRAM 
+# 🟣 VISUAL DIAGRAM 
 
-<img src="assets/76584.png" width="1024" />
+<img src="https://raw.githubusercontent.com/ind4skylivey/livey-codex-toolkit/main/assets/blueprint-diagram.png" width="1024" />
 
 
-🟣 5) cx-engine-ui — TUI Selector 
+
+🟣 cx-engine-ui — TUI Selector 
 
 Create: bin/cx-engine-ui
 
@@ -265,7 +264,7 @@ codex/prompts/agent.local.md – Local LLM optimized
 
 Use with UAEP:
 
-```bash
+
 cx-uaep production --profile claude
 cx-uaep production --profile qwen
 cx-uaep staging    --profile local
@@ -310,53 +309,53 @@ Works with Ollama, LM Studio, and custom local endpoints.
 
 # 📦 Installation
 
-```bash
 git clone git@github.com:ind4skylivey/livey-codex-toolkit.git
 cd livey-codex-toolkit
-export PATH="$PWD/bin:$PATH"
-
-Optional symlink:
-
+mkdir -p ~/bin
 ln -s "$PWD/bin"/cx-* ~/bin/
+
+#🔹Universal Installer
+./install.sh
+
 
 🔮 UAEP Protocol
 
 UAEP standardizes AI execution using 5 strict response layers:
 
-    PLAN – architecture + reasoning
+  PLAN – architecture + reasoning
 
-    FILE-TREE – directory layout
+  FILE-TREE – directory layout
 
-    GENERATION RULES – formatting, standards, safety
+  GENERATION RULES – formatting, standards, safety
 
-    IMPLEMENTATION – full working code
+  IMPLEMENTATION – full working code
 
-    TASK QUEUE – next actions
+  TASK QUEUE – next actions
 
 UAEP can run in:
 Production Mode
 
-    strict, safe, fully documented
+  strict, safe, fully documented
 
-    ideal for real projects
+  ideal for real projects
 
 Staging Mode
 
-    rapid prototyping
+  rapid prototyping
 
-    TODOs allowed
+  TODOs allowed
 
-    ideal for experiments
+  ideal for experiments
 
 Special Modes
 
-    security_analysis
+  security_analysis
 
-    performance_max
+  performance_max
 
-    ai_local_support
+  ai_local_support
 
-    architecture_review
+  architecture_review
 
 Load UAEP:
 
@@ -438,23 +437,23 @@ livey-codex-toolkit/
 
 🔰 Philosophy & Safety
 
-    The toolkit never modifies files directly.
+  The toolkit never modifies files directly.
 
-    All changes are visible through diff previews.
+  All changes are visible through diff previews.
 
-    You remain fully in control of commits, patches, and code writing.
+  You remain fully in control of commits, patches, and code writing.
 
-    UAEP ensures predictable, structured responses across any LLM.
+  UAEP ensures predictable, structured responses across any LLM.
 
 Use the profile system for safety:
 
-    dev
+  dev
 
-    analyze
+  analyze
 
-    git-ssh
+  git-ssh
 
-    livey_power_user (full-auto mode 😈)
+  livey_power_user (full-auto mode 😈)
 
 🔄 Workflows
 Daily Dev Loop
@@ -484,44 +483,44 @@ cx-review
 
 Available soon as:
 
-    SVG (vector)
+  SVG (vector)
 
-    PNG (HQ)
+  PNG (HQ)
 
-    Banner integration
+  Banner integration
 
 🛣 Roadmap
 v1.2
 
-    install.sh
+  install.sh
 
-    cx-pr
+  cx-pr
 
-    cx-changelog
+  cx-changelog
 
-    execution_modes.toml
+  execution_modes.toml
 
-    test suite
+  test suite
 
 v2.0
 
-    Rust rewrite
+  Rust rewrite
 
-    Local AI fallback
+  Local AI fallback
 
-    Plugin system
+  Plugin system
 
-    TUI interface
+  TUI interface
 
 v3.0+
 
-    multi-repo ops
+  multi-repo ops
 
-    CI/CD integrations
+  CI/CD integrations
 
-    Neovim/VSCode bindings
+  Neovim/VSCode bindings
 
-    template marketplace
+  template marketplace
 
 🤝 Contributing
 
@@ -534,9 +533,9 @@ Respect UAEP structure.
 MIT License.
 🔗 Links
 
-    Repository: https://github.com/ind4skylivey/livey-codex-toolkit
+  Repository: https://github.com/ind4skylivey/livey-codex-toolkit
 
-    UAEP Docs: codex/prompts/uaep/uaep_readme.md
+  UAEP Docs: codex/prompts/uaep/uaep_readme.md
 
     Issues: https://github.com/ind4skylivey/livey-codex-toolkit/issues
 
