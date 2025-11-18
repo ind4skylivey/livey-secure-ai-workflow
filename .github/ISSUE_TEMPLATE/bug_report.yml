@@ -1,0 +1,28 @@
+---
+name: Bug Report
+about: Report a reproducible bug or malfunction
+labels: bug
+---
+
+**Describe the bug**
+A clear and concise description of what the bug is.
+
+**To Reproduce**
+Steps to reproduce the behavior (CLI command, file, workflow, etc.):
+1. Run '...'
+2. See error
+
+**Expected Behavior**
+What did you expect to happen?
+
+**Logs/Terminal output**
+Paste relevant error or output snippets, if possible (redact secrets).
+
+**Environment (please complete the following information):**
+- OS/distro, shell (bash/zsh/etc)
+- AI model (Codex, Ollama, GPT-4, local LLM, etc)
+- Toolkit version (run `cx-uaep --version`)
+- Any custom configuration
+
+**Additional Context**
+Add any other context about the problem here.

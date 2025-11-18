@@ -1,0 +1,23 @@
+---
+name: Feature Request
+about: Suggest an enhancement or new capability for Livey Codex Toolkit
+labels: enhancement
+---
+
+**What problem are you trying to solve?**
+Describe your use case or workflow. What challenge are you encountering, or what new capability would improve your productivity?
+
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
+
+**Describe alternatives you've considered**
+Any alternative solutions or features you’ve tried or considered.
+
+**Additional context**
+Add any relevant files, commands, or mockups.
+
+**AI Model (if relevant):**
+- [ ] OpenAI / GPT-4
+- [ ] Claude
+- [ ] Ollama / local LLM
+- [ ] Other: __________

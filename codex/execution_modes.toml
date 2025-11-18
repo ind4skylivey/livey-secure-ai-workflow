@@ -1,0 +1,21 @@
+# execution_modes.toml — base modes for LiveY Codex Toolkit
+
+[mode.production]
+description = "Strict, safe, fully audited mode for production work."
+allow_write = false
+require_tests = true
+security_focus = true
+
+[mode.staging]
+description = "Fast iteration mode, TODOs allowed."
+allow_write = true
+require_tests = false
+security_focus = false
+
+[mode.livey_power_user]
+description = "Full-auto, high-trust mode for advanced users."
+allow_write = true
+require_tests = false
+security_focus = true
+git_safe = false
+
