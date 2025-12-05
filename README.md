@@ -116,6 +116,12 @@ Every command (`cx-review`, `cx-pr`, `cx-fix`, `cx-security`, UAEP modes, templa
 - **litellm bridges**
 - **Self-hosted inference endpoints**
 
+### 🔐 API keys & safety
+- Add your provider key as a GitHub secret `LLM_API_KEY`; never commit keys to the repo.
+- Workflows auto-skip if `LLM_API_KEY` is missing and `LLM_PROVIDER` is not set to `local`.
+- To avoid egress, set `LLM_PROVIDER=local` and `LLM_ENDPOINT=http://localhost:11434/api/generate`.
+- Rotate keys regularly and scope them to least privilege.
+
 ### Why it works
 The toolkit uses:
 - `codex` as a universal abstraction layer  
@@ -542,4 +548,3 @@ MIT License.
   UAEP Docs: codex/prompts/uaep/uaep_readme.md
 
     Issues: https://github.com/ind4skylivey/livey-codex-toolkit/issues
-

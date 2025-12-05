@@ -10,6 +10,11 @@
 - No package installation beyond `jq`.
 - Optional `id-token:write` reserved for future OIDC attestation.
 
+## API Keys
+- Store LLM provider keys only as GitHub Secrets (e.g., `LLM_API_KEY`); never commit or log them.
+- Workflows skip automatically if no key is present unless `LLM_PROVIDER=local`.
+- Prefer least-privilege keys and rotate regularly.
+
 ## How Not to Leak Code
 - Always prefer diff-scoped reviews.
 - Avoid pasting stack traces containing secrets into prompts.
