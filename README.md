@@ -2,7 +2,11 @@
   <img width="1024" height="1024" alt="Livey Codex Toolkit Banner" src="https://github.com/user-attachments/assets/287507a2-5e38-44e4-9c35-d0c643923e87" />
 </p>
 
-<h1 align="center">livey-secure-ai-workflow</h1>
+<h1 align="center">
+  🛡️ livey-secure-ai-workflow<br />
+  <sub>Red-team inspired AI workflows for code & security review</sub>
+</h1>
+
 <p align="center"><strong>Universal AI-powered toolkit for terminal-first developers, hackers, and automation power users</strong></p>
 
 <p align="center">
