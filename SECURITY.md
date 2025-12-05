@@ -1,37 +1,28 @@
-# Security Policy
+# Security Model
 
-## Supported Versions
-- Only the latest `main` branch is supported
-- Security patches are backported to the latest release if applicable
+## Threat Boundaries
+- Data sent to LLMs is limited to `git diff` and minimal context; full files are not uploaded.
+- Secrets are masked where patterns are detected before sending.
+- Local-only mode prevents any external egress.
 
-## Reporting a Vulnerability
-1. **Do NOT post vulnerabilities publicly.**
-2. Please email: security@livey-codex-toolkit.dev (replace with your actual address if preferred).
-3. Describe:
-   - What is affected (command, file, workflow)
-   - How to reproduce
-   - Your environment (OS/distro, shell, Codex version, model, etc.)
-4. If you use GitHub issues, label as `security` and mark private if necessary.
-5. Initial response in 48 hours; mitigation/patch within 7 days for serious issues.
+## Permission Scopes
+- GitHub Actions tokens limited to `contents:read` and `pull-requests:write`.
+- No package installation beyond `jq`.
+- Optional `id-token:write` reserved for future OIDC attestation.
 
-## Disclosure Policy
-- Coordinated/Responsible Disclosure is encouraged
-- Public advisory will be published after fix or as mutually agreed
+## How Not to Leak Code
+- Always prefer diff-scoped reviews.
+- Avoid pasting stack traces containing secrets into prompts.
+- When running locally, keep `LLM_PROVIDER=local` for air-gapped workflows.
 
-## Scope
-- Bash scripts, prompt templates, install scripts
-- Third-party usage patterns (e.g. AI model integration via Codex/Ollama/LLMs)
-- Repository infrastructure
+## Safe Prompting Principles
+- Explicit system instructions to mask tokens and avoid speculation.
+- Severity scoring enforces clarity and minimizes verbose dumps.
+- Guardrails disallow fabricated code and secret echoing.
 
-## Out of Scope
-- Third-party AI model bugs and upstream LLM vulnerabilities
-- User configuration errors
-
-## Best Practices
-- Always review generated code
-- Do not trust AI output blindly
-- Use on isolated/dev environments for critical tasks
-- Never share private keys or sensitive files in prompts
+## Incident Response
+- If a secret is detected in output: rotate immediately, purge history, rerun scan.
+- If unintended data egress is suspected: disable workflows, audit runner logs, rotate tokens.
 
 ## Contact
-For urgent issues, use GitHub Security tab or contact security@livey-codex-toolkit.dev (configure as desired).
+ind4skylivey (maintainer). Use encrypted channels for sensitive reports.

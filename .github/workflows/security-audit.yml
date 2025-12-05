@@ -1,0 +1,45 @@
+name: Security Audit
+on:
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: "0 6 * * *"
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    env:
+      LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'openai' }}
+      LLM_MODEL: ${{ vars.LLM_MODEL || 'gpt-4o-mini' }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      LLM_ENDPOINT: ${{ vars.LLM_ENDPOINT || '' }}
+      FAIL_ON_HIGH: ${{ vars.FAIL_ON_HIGH || 'false' }}
+      WORKDIR: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Security Static Redteam Audit
+        run: |
+          bash bin/cx-security-audit.sh \
+            --prompt codex/prompts/security_static_redteam.md \
+            --template templates/pr-security-review.md
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-report
+          path: artifacts/security-audit.*
+
+      - name: Fail on High Severity
+        if: env.FAIL_ON_HIGH == 'true'
+        run: |
+          if jq -e '.max_severity == "high" or .max_severity == "critical"' artifacts/security-audit.json >/dev/null; then
+            echo "High severity findings detected"; exit 1; fi
