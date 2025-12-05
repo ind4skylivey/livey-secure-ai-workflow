@@ -63,6 +63,7 @@ Built for developers who live in the terminal and run their workflows like a com
 ---
 
 # ⚡ Why This Toolkit Exists
+<img width="2816" height="1536" alt="346234" src="https://github.com/user-attachments/assets/54034173-2b1e-49a2-b89b-ffa6e8617cce" />
 
 Because modern development deserves tools that:
 
