@@ -8,6 +8,7 @@ permissions:
   id-token: write
 jobs:
   secure-review:
+    if: ${{ secrets.LLM_API_KEY != '' || vars.LLM_PROVIDER == 'local' }}
     runs-on: ubuntu-latest
     env:
       LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'openai' }}
